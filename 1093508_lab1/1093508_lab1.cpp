@@ -59,15 +59,16 @@ void createList(ifstream &inFile, NODE **head)
     NODE *first, *cur, *prev;
     for(auto i: numbers_set)//range base for loop
     {
-        cur = (NODE *)malloc(sizeof(NODE));
-        cur-> data = i;
+        cur = (NODE *)malloc(sizeof(NODE)); // create a node for each numbers in the set
+        cur -> data = i; // allocate data in the node
         if(i == *numbers_set.begin()) // if i value is the first in the set, first is set to current.
             first = cur;
         else
-            prev -> link = cur;
-        cur -> link=NULL;
-        prev = cur;
+            prev -> link = cur; // else previous node's link to current node
+        cur -> link = NULL; // current link point to NULL
+        prev = cur; // move to next node and set previous node to current
     }
+
 }
 void deleteElements(ifstream &inFileDel, NODE **head);
 bool searchLinkedList(NODE *head, int, NODE **prePtr, NODE **curPtr);
