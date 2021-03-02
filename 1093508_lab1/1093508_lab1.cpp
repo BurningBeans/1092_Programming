@@ -1,5 +1,6 @@
 #include <iostream>
 #include <set>
+#include <vector>
 #include <iomanip>
 #include <fstream>
 using namespace std;
@@ -14,7 +15,6 @@ bool searchLinkedList(NODE *, int, NODE **, NODE **);
 void insertLinkedList(NODE **, int );
 void deleteLinkedList(NODE **, int );
 void displayList(NODE *);
-
 int main()
 {
     string dataFilename;
@@ -31,6 +31,7 @@ int main()
         cout << "File open error!" << endl;
         exit(1);
     }
+    
     createList(inFile, &listHead);
     inFile.close();
     displayList(listHead);
@@ -48,30 +49,72 @@ int main()
     inFileDel.close();
     return 0;
 }
+//----------------------------------------------------------------
 void createList(ifstream &inFile, NODE **head)
 {
-    set <int,greater<int>> numbers_set;
+    set <int,greater<int>> numbers_set; // using set to store numbers
     int num = 0;
     while(inFile >> num)
     {
         numbers_set.insert(num);
     }
-    NODE *first, *cur, *prev;
-    for(auto i: numbers_set)//range base for loop
+    NODE *cur, *prev;
+    for(auto i: numbers_set)// range base for loop for each numbers in the set
     {
-        cur = (NODE *)malloc(sizeof(NODE)); // create a node for each numbers in the set
+        cur = new NODE; // create a node for each numbers in the set
         cur -> data = i; // allocate data in the node
         if(i == *numbers_set.begin()) // if i value is the first in the set, first is set to current.
-            first = cur;
+            *head = cur;
         else
             prev -> link = cur; // else previous node's link to current node
         cur -> link = NULL; // current link point to NULL
         prev = cur; // move to next node and set previous node to current
     }
+}
+void deleteElements(ifstream &inFileDel, NODE **head)
+{
+    int num = 0;
+    vector <int> numbers;
+    while(inFileDel >> num)
+    {
+        numbers.push_back(num);
+    }
+    
+}
+bool searchLinkedList(NODE *head, int, NODE **prePtr, NODE **curPtr)
+{
+    return true;
+}
+void insertLinkedList(NODE **head, int data)
+{
+    return;
+}
+void deleteLinkedList(NODE **head, int data)
+{
+    NODE **curPtr;
+    NODE **prePtr;
+    if(!searchLinkedList(*head, data, curPtr, prePtr)) // not found
+        return;
+    if(*prePtr == NULL)
+        *head = (*curPtr)->link;
+    else
+        (*prePtr)->link = (*curPtr)->link;
+    (*curPtr)->link = NULL;
+    delete *curPtr;
 
 }
-void deleteElements(ifstream &inFileDel, NODE **head);
-bool searchLinkedList(NODE *head, int, NODE **prePtr, NODE **curPtr);
-void insertLinkedList(NODE **head, int data);
-void deleteLinkedList(NODE **head, int data);
-void displayList(NODE *head);
+void displayList(NODE *head)
+{
+    int count=0; // Used for counting the number of nodes
+    NODE *tempPtr = head; // Set tempPtr to the head of the linked-list
+    while(tempPtr != NULL) // Check whether get to the end of the linked-list
+    {
+        cout << tempPtr->data << " "; // Print out the data stored in the node
+        tempPtr = tempPtr->link; // Move to the next node
+        count++;
+        if(count%15 == 0) // Change line if already printing 15 numbers
+            cout << endl;
+    }
+    cout << endl;
+    cout << "Total number of elements in the linked list: " << count << endl;
+}
