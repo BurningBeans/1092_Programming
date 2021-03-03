@@ -31,7 +31,6 @@ int main()
         cout << "File open error!" << endl;
         exit(1);
     }
-    
     createList(inFile, &listHead);
     inFile.close();
     displayList(listHead);
@@ -52,6 +51,7 @@ int main()
 //----------------------------------------------------------------
 void createList(ifstream &inFile, NODE **head)
 {
+
     set <int,greater<int>> numbers_set; // using set to store numbers
     int num = 0;
     while(inFile >> num)
@@ -79,21 +79,45 @@ void deleteElements(ifstream &inFileDel, NODE **head)
     {
         numbers.push_back(num);
     }
+    for(auto i:numbers)
+    {
+        deleteLinkedList(head,i);
+    }
     
 }
-bool searchLinkedList(NODE *head, int, NODE **prePtr, NODE **curPtr)
+bool searchLinkedList(NODE *head, int key, NODE **prePtr, NODE **curPtr)//return true if data is found in the list
 {
-    return true;
+    *prePtr = NULL;
+    *curPtr = head;
+    /*
+    if(*curPtr == NULL)
+    {
+        return false; // current is NULL means it's the end or head is NULL or something is very wrong
+    }
+    */
+    while(*curPtr != NULL)
+    {
+        if((*curPtr) -> data == key)
+        {
+            return true;
+        }
+        else
+        {
+            *prePtr = *curPtr;
+            *curPtr = (*curPtr)-> link;
+        }
+    }
+    return false;
 }
-void insertLinkedList(NODE **head, int data)
+void insertLinkedList(NODE **head, int key)//is the function missing calling cur and prev???
 {
     return;
 }
-void deleteLinkedList(NODE **head, int data)
+void deleteLinkedList(NODE **head, int key)
 {
     NODE **curPtr;
     NODE **prePtr;
-    if(!searchLinkedList(*head, data, curPtr, prePtr)) // not found
+    if(!searchLinkedList(*head, key, curPtr, prePtr)) // not found
         return;
     if(*prePtr == NULL)
         *head = (*curPtr)->link;
@@ -109,8 +133,8 @@ void displayList(NODE *head)
     NODE *tempPtr = head; // Set tempPtr to the head of the linked-list
     while(tempPtr != NULL) // Check whether get to the end of the linked-list
     {
-        cout << tempPtr->data << " "; // Print out the data stored in the node
-        tempPtr = tempPtr->link; // Move to the next node
+        cout << tempPtr -> data << " "; // Print out the data stored in the node
+        tempPtr = tempPtr -> link; // Move to the next node
         count++;
         if(count%15 == 0) // Change line if already printing 15 numbers
             cout << endl;
