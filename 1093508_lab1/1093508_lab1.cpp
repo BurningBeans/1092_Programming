@@ -9,11 +9,11 @@ struct NODE
     int data;
     NODE *link;
 };
-void createList(ifstream &, NODE **);
-void deleteElements(ifstream &, NODE **);
-bool searchLinkedList(NODE *, int, NODE **, NODE **);
-void insertLinkedList(NODE **, int );
-void deleteLinkedList(NODE **, int );
+void createList(ifstream &, NODE *&);
+void deleteElements(ifstream &, NODE *&);
+bool searchLinkedList(NODE *&, int, NODE *&, NODE *&);
+void insertLinkedList(NODE *&, int );
+void deleteLinkedList(NODE *&, int );
 void displayList(NODE *);
 int main()
 {
@@ -31,7 +31,7 @@ int main()
         cout << "File open error!" << endl;
         exit(1);
     }
-    createList(inFile, &listHead);
+    createList(inFile, listHead);
     inFile.close();
     displayList(listHead);
     // Second part
@@ -43,35 +43,36 @@ int main()
         exit(1);
     }
     cout << "\nList after deletion:" << endl;
-    deleteElements (inFileDel, &listHead);
+    deleteElements (inFileDel, listHead);
     displayList (listHead);
     inFileDel.close();
     return 0;
 }
 //----------------------------------------------------------------
-void createList(ifstream &inFile, NODE **head)
+void createList(ifstream &inFile, NODE *&head)
 {
-
     set <int,greater<int>> numbers_set; // using set to store numbers
     int num = 0;
     while(inFile >> num)
     {
         numbers_set.insert(num);
     }
-    NODE *cur, *prev;
     for(auto i: numbers_set)// range base for loop for each numbers in the set
     {
+        insertLinkedList(head,i);
+        /*
         cur = new NODE; // create a node for each numbers in the set
         cur -> data = i; // allocate data in the node
         if(i == *numbers_set.begin()) // if i value is the first in the set, first is set to current.
-            *head = cur;
+            head = cur;
         else
             prev -> link = cur; // else previous node's link to current node
         cur -> link = NULL; // current link point to NULL
         prev = cur; // move to next node and set previous node to current
+        */
     }
 }
-void deleteElements(ifstream &inFileDel, NODE **head)
+void deleteElements(ifstream &inFileDel, NODE *&head)
 {
     int num = 0;
     vector <int> numbers;
@@ -85,48 +86,71 @@ void deleteElements(ifstream &inFileDel, NODE **head)
     }
     
 }
-bool searchLinkedList(NODE *head, int key, NODE **prePtr, NODE **curPtr)//return true if data is found in the list
+bool searchLinkedList(NODE *&head, int key, NODE *&prePtr, NODE *&curPtr)//return true if data is found in the list
 {
-    *prePtr = NULL;
-    *curPtr = head;
-    /*
-    if(*curPtr == NULL)
+    curPtr = head;
+    prePtr = NULL;
+    while(curPtr!=NULL)
     {
-        return false; // current is NULL means it's the end or head is NULL or something is very wrong
-    }
-    */
-    while(*curPtr != NULL)
-    {
-        if((*curPtr) -> data == key)
+        if(curPtr -> data == key)
         {
             return true;
         }
-        else
-        {
-            *prePtr = *curPtr;
-            *curPtr = (*curPtr)-> link;
-        }
+        prePtr = curPtr;
+        curPtr = curPtr -> link;
     }
     return false;
 }
-void insertLinkedList(NODE **head, int key)//is the function missing calling cur and prev???
+void insertLinkedList(NODE *&head, int key)
 {
+    NODE *cur, *prev;
+    cur = new NODE; // create a node for each numbers in the set
+    cur -> data = key; // assign data in the node
+    if(head == NULL)
+        head = cur;
+    else
+        prev -> link = cur; // else previous node's link to current node
+    cur -> link = NULL; // current link point to NULL
+    prev = cur; // move to next node and set previous node to current
     return;
 }
-void deleteLinkedList(NODE **head, int key)
+void deleteLinkedList(NODE *&listHead, int key)
 {
-    NODE **curPtr;
-    NODE **prePtr;
-    if(!searchLinkedList(*head, key, curPtr, prePtr)) // not found
+    NODE *curPtr;
+    NODE *prePtr;
+    if(!searchLinkedList(listHead, key, prePtr, curPtr)) // not found
         return;
-    if(*prePtr == NULL)
-        *head = (*curPtr)->link;
+    if(prePtr == NULL)
+        listHead = curPtr->link;
     else
-        (*prePtr)->link = (*curPtr)->link;
-    (*curPtr)->link = NULL;
-    delete *curPtr;
-
+        prePtr->link = curPtr->link;
+    curPtr->link = NULL;
+    delete curPtr;
 }
+/*
+void deleteLinkedList(NODE *&listHead, int key)
+{
+    NODE *curPtr = listHead;
+    NODE *prePtr = NULL;
+    //if(!searchLinkedList(listHead, key, curPtr, prePtr)) // not found
+    //    return;
+    while(curPtr != NULL)
+    {
+        if(curPtr -> data == key)
+        {
+            if(prePtr == NULL)
+                listHead = curPtr -> link;
+            else
+                prePtr -> link = curPtr -> link;
+            //curPtr -> link = NULL;
+            delete curPtr;
+        }
+        prePtr = curPtr;
+        curPtr = curPtr -> link;
+    }
+    return;
+}
+*/
 void displayList(NODE *head)
 {
     int count=0; // Used for counting the number of nodes
