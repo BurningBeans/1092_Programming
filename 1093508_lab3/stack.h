@@ -5,36 +5,58 @@ class Stack{
     private:
     int stackSize;
     int stackPtr;
-    string charStack;
-    //char *charStack; //don't know how to use c style string :(
+    char *c_array;
     public:
-    Stack(int, int, string);
+    Stack(int = 1, int = 0, char * = NULL);
     void push(char);
     char pop();
     void reset();
     bool empty();
     bool full();
+    void ptrminus();
     //void print(); // debug function
 };
-Stack::Stack(int size = 1, int ptr = 0,string c_stack = "")
+Stack::Stack(int size, int ptr,char *c_arr)
 {
     stackSize = size;
     stackPtr = ptr;
-    charStack = c_stack;
+    //c_array = c_arr;
+    c_array = new char [stackSize];
 }
 void Stack::push(char c)
 {
-    charStack += c;
-    stackSize++;
+    c_array[stackPtr] = c;
+    stackPtr++;
 }
 char Stack::pop()
 {
-    return *charStack.rbegin();
+    return c_array[stackPtr-1];
+}
+void Stack::reset()
+{
+    c_array = new char [stackSize];
+    stackPtr = 0;
+}
+bool Stack::empty()
+{
+    if(stackPtr == 0)
+        return true;
+    return false;
+}
+bool Stack::full()
+{
+    if(stackPtr == stackSize)
+        return true;
+    return false;
 }
 /*
 void Stack::print()
 {
-    cout << charStack;
+    cout << c_array;
     cout << endl;
 }
 */
+void Stack::ptrminus()
+{
+    stackPtr--;
+}
