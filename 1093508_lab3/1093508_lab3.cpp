@@ -8,6 +8,7 @@ int main()
 {
     int stacksize = 0;//
     cin >> stacksize;
+    stacksize;
     int inputs = 0;
     cin >> inputs;
     Stack aStack(stacksize,0,NULL);
@@ -25,14 +26,35 @@ void checkExpression(string str, Stack &aStack)
         if(aStack.full())
         {
             cout << "Stack is full" << endl;
+            aStack.reset();
             return;
         }
         if(i == '(')
             aStack.push(i);
-        else if(i == ')')
-            aStack.push(i);
+        if(i == ')')
+        {
+            if(aStack.empty())
+            {
+                cout << "more )'s\n";
+                aStack.reset();
+                return;
+            }
+            else
+            {
+                aStack.pop();
+            }
+        }
     }
-    //
+    if(!aStack.empty())
+    {
+        cout << "more ('s\n";
+    }
+    else
+    {
+        cout <<"correct\n";
+    }
+    aStack.reset();
+    /*
     int counters = 0;//if counter < 0 meaning "(" is more than ")"
     while(!aStack.empty())
     {
@@ -42,12 +64,10 @@ void checkExpression(string str, Stack &aStack)
         }
         if(aStack.pop()==')')
         {
-            aStack.ptrminus();
             counters++;
         }
         else if(aStack.pop()=='(')
         {
-            aStack.ptrminus();
             counters--;
         }
     }
@@ -65,4 +85,5 @@ void checkExpression(string str, Stack &aStack)
         cout << "correct \n";
     }
     aStack.reset();
+    */
 }

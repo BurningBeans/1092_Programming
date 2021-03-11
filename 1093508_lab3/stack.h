@@ -13,7 +13,6 @@ class Stack{
     void reset();
     bool empty();
     bool full();
-    void ptrminus();
     //void print(); // debug function
 };
 Stack::Stack(int size, int ptr,char *c_arr)
@@ -30,12 +29,13 @@ void Stack::push(char c)
 }
 char Stack::pop()
 {
-    return c_array[stackPtr-1];
+    stackPtr--;
+    return c_array[stackPtr+1];
 }
 void Stack::reset()
 {
-    c_array = new char [stackSize];
     stackPtr = 0;
+    //cout <<"The stack is reset.\n";
 }
 bool Stack::empty()
 {
@@ -45,7 +45,7 @@ bool Stack::empty()
 }
 bool Stack::full()
 {
-    if(stackPtr == stackSize)
+    if(stackPtr-1 == stackSize)
         return true;
     return false;
 }
@@ -56,7 +56,3 @@ void Stack::print()
     cout << endl;
 }
 */
-void Stack::ptrminus()
-{
-    stackPtr--;
-}
