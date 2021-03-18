@@ -7,7 +7,7 @@ Queue::Queue(int insize)
     size = insize;
     intQueue = new int [size];
     front = 0;
-    rear = 0;
+    rear = -1;
     count = 0;
 }
 Queue::~Queue()
@@ -16,7 +16,7 @@ Queue::~Queue()
 }
 void Queue::enqueue(int num)
 {
-    intQueue[rear] = num;
+    intQueue[rear+1] = num;
     rear++;
     count++;
 }
@@ -60,13 +60,14 @@ void Queue::clearQueue()
     delete []intQueue;
     intQueue = new int [size];
     front = 0;
-    rear = 0;
+    rear = -1;
     count = 0;
 }
 void Queue::printQueue()
 {
     for(int i = 0 ; i < count ; i++)
     {
-        cout << intQueue[i] << " \n";
+        cout << intQueue[i] << " ";
     }
+    cout << '\n';
 }
