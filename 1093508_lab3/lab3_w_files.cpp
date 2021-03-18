@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 class Stack{
@@ -19,7 +20,7 @@ Stack::Stack(int size, int ptr,char *c_arr)
 {
     stackSize = size;
     stackPtr = ptr;
-    c_array = c_arr;
+    c_array = new char [stackSize];
 }
 void Stack::push(char c)
 {
@@ -28,15 +29,11 @@ void Stack::push(char c)
 }
 char Stack::pop()
 {
-    char c = c_array[stackPtr];
-    c_array[stackPtr] = '\0';
     stackPtr--;
-    return c;
+    return c_array[stackPtr+1];
 }
 void Stack::reset()
 {
-    delete[] c_array;
-    c_array = new char[stackSize];
     stackPtr = 0;
     //cout <<"The stack is reset.\n";
 }
@@ -62,27 +59,23 @@ void Stack::print()
 void checkExpression(string, Stack &);
 int main()
 {
+    ifstream inFile("inputs",ios::in);
+    
     int stacksize = 0;
-    cin >> stacksize;
+    inFile >> stacksize;
     int inputs = 0;
-    cin >> inputs;
-    Stack aStack(stacksize, 0, new char[stacksize]);
+    inFile >>inputs;
+    Stack aStack(stacksize,0,NULL);
     string str = "";
     for(int i = 0; i < inputs; i++)
     {
-        cin >> str;
-        cout << "\n";
+        inFile >> str;
         checkExpression(str,aStack);
-        cout << '\n';
     }
+    inFile.close();
 }
 void checkExpression(string str, Stack &aStack)
 {
-    if(str.empty())//Not used in the example output
-    {
-        cout << "Empty input!";
-        return;
-    }
     for(char i: str)
     {
         if(i == '(')
