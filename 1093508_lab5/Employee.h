@@ -6,9 +6,9 @@ using namespace std;
 class Employee
 {
 public:
-    Employee( const string &, const string &, const Date &, const Date &,const Date &, int );
-    void print() const;
-    Employee &eDismiss(const Date &);
+    Employee( const string &, const string &, const Date &, const Date &, Date &, int );
+    Employee &print();
+    Employee *eDismiss(const Date &);
     Employee &increaseSalary(int);
     ~Employee(); // provided to confirm destruction order
 private:

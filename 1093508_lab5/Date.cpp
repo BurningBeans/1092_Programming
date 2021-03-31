@@ -22,9 +22,9 @@ void Date::print()const
 {
     cout << month << '/' << day << '/' << year;
 }
-bool Date::compareDate(const Date &cDate) const //if self is later than cDate return true
+bool Date::compareDate(const Date &cDate)const //if self is later than cDate return true, using pass by refrence to avoid double constructing
 {
-    if(month == 1 && month == 1 &&year == 1900)//if first date is the default one, return true
+    if(month == 1 && day == 1 &&year == 1900)//if first date is the default one, return true
         return true;
     if(year > cDate.year)
     {
@@ -36,7 +36,7 @@ bool Date::compareDate(const Date &cDate) const //if self is later than cDate re
         {
             return true;
         }
-        if(month == cDate.month)
+        else if(month == cDate.month)
         {
             if(day >= cDate.day)//same day is ture ***for now*** if not, remove the = mark
             {

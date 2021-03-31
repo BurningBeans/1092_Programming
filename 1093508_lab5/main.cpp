@@ -13,8 +13,8 @@ int main()
     Employee manager1( "Tom", "Crouse", birth, hire, zero, 66000 );
     cout << endl;
     manager1.print();
-    manager1.increaseSalary(2000).print();//
-    manager1.eDismiss(dismiss).print();
+    manager1.increaseSalary(2000).print();
+    manager1.eDismiss(dismiss)->print();
     cout << "\nTest Date constructor with invalid values:\n";
     Date lastDayOff( 14, 35, 1994 ); // invalid month and day
     cout << endl;
@@ -24,6 +24,6 @@ int main()
     Employee E1( "Mary", "Hunton", birth1, hire1, dismiss1, 45000 );
     cout << endl;
     Date dismiss2(3,28, 2000);
-    E1.eDismiss(dismiss2).print();//
+    E1.eDismiss(dismiss2)->print();
     E1.increaseSalary(-2000).print();
 } // end main
