@@ -2,16 +2,25 @@
 #include "Employee.h"
 using namespace std;
 int Employee::count = 0;
-int Employee::countAdm  = 0;
-Employee::Employee(const string &firstN, const string &lastN, bool rank)
+int Employee::fcount = 0;
+int Employee::mcount = 0;
+Employee::Employee(const string &firstN, const string &lastN, char gen)
+:firstName(firstN),
+lastName(lastN),
+gender(gen)
 {
-    firstName = firstN;
-    lastName = lastN;
-    eRank = rank;
     count++;
-    if(eRank)
+    if(gender == 'M')
     {
-        countAdm++;
+        mcount ++;
+    }
+    else if(gender == 'F')
+    {
+        fcount++;
+    }
+    else
+    {
+        cout << "Employee's gender specification is incorrect. " << gender << endl;
     }
     cout << "Employee constructor for " << firstName << ' ' << lastName << " called. \n";
 
@@ -20,9 +29,13 @@ Employee::~Employee()
 {
     cout << "~Employee() called for " << firstName << ' ' << lastName << '\n';
     count--;
-    if(eRank)
+    if(gender == 'M')
     {
-        countAdm--;
+        mcount--;
+    }
+    if(gender == 'F')
+    {
+        fcount--;
     }
 }
 string Employee::getfirstName() const
@@ -37,9 +50,13 @@ int Employee::getCount()
 {
     return count;
 }
-int Employee::getAdmCount()
+int Employee::getfCount()
 {
-    return countAdm;
+    return fcount;
+}
+int Employee::getmCount()
+{
+    return mcount;
 }
 Employee &Employee::printfirstName()
 {
@@ -53,22 +70,37 @@ Employee *Employee::printlastName()
 }
 void Employee::printCount()
 {
-    cout << "Number of employees: " << count << '\t' << "Number of managers: " << countAdm << '\n';
+    cout << "Number of employees: " << count << '\t' << "Number of male employees: " << mcount << '\t' << "Number of female employees: " << fcount << '\n';
 }
 
 
 
 
 //----------------------------------------------------------------
-/*
+
 void print(const Employee &e)
 {
-    cout << e.firstName << ' ' << e.lastName << ' ' << e.eRank <<'\n';
+    cout << e.firstName << ' ' << e.lastName << ' ' << e.gender <<'\n';
 }
-*/
+/*
 void print(const Employee e)
 {
-    cout << e.firstName << ' ' << e.lastName << ' ' << e.eRank <<'\n';
+    cout << e.firstName << ' ' << e.lastName << ' ' << e.gender <<'\n';
 }
-
+Employee::Employee(const Employee &e)//copy constructor
+{
+    firstName = e.firstName;
+    lastName = e.lastName;
+    gender = e.gender;
+    count++;
+    if(gender == 'M')
+    {
+        mcount ++;
+    }
+    if(gender == 'F')
+    {
+        fcount++;
+    }
+}
+*/
 //----------------------------------------------------------------
