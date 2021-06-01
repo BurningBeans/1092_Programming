@@ -3,8 +3,8 @@
 #include "SavingAccount.h"
 #include "CheckingAccount.h"
 using namespace std;
-bool CheckingToSaving(CheckingAccount&, SavingAccount&, const double);
-bool SavingToChecking(SavingAccount&, CheckingAccount&, const double);
+bool CheckingToSaving(CheckingAccount &, SavingAccount &, const double);
+bool SavingToChecking(SavingAccount &, CheckingAccount &, const double);
 int main()
 {
     cout << "\nCreating a saving account" << endl;
@@ -46,11 +46,11 @@ int main()
     system("pause");
     return 0;
 }
-bool CheckingToSaving(CheckingAccount& cAcnt, SavingAccount& sAcnt, const double amount)
+bool CheckingToSaving(CheckingAccount &cAcnt, SavingAccount &sAcnt, const double amount)
 {
-    if(cAcnt.balance-(amount+cAcnt.transactFeeW) >=0 )
+    if (cAcnt.balance - (amount + cAcnt.transactFeeW) >= 0)
     {
-        cAcnt.balance = cAcnt.balance-(amount+cAcnt.transactFeeW);
+        cAcnt.balance = cAcnt.balance - (amount + cAcnt.transactFeeW);
         sAcnt.credit(amount);
         return true;
     }
@@ -61,11 +61,11 @@ bool CheckingToSaving(CheckingAccount& cAcnt, SavingAccount& sAcnt, const double
     }
     return false;
 }
-bool SavingToChecking(SavingAccount& sAcnt, CheckingAccount& cAcnt, const double amount)
+bool SavingToChecking(SavingAccount &sAcnt, CheckingAccount &cAcnt, const double amount)
 {
-    if(sAcnt.balance-(amount+sAcnt.transactFee) >=0 )
+    if (sAcnt.balance - (amount + sAcnt.transactFee) >= 0)
     {
-        sAcnt.balance = sAcnt.balance-(amount+sAcnt.transactFee);
+        sAcnt.balance = sAcnt.balance - (amount + sAcnt.transactFee);
         cAcnt.credit(amount);
         return true;
     }

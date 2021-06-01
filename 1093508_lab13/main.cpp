@@ -53,13 +53,21 @@ int main()
     catch(exception &){
         cout << "Array writing is not done.\n";
     }
-    Array ptr[50];
+    
+    int *ptr[50];
     cout << "Memory allocation for large arrays.\n";
 
-    for(int i=0; i < 50; i++)
+    try{
+        for(int i=0; i < 50; i++)
+        {
+            //Array intergerx(50000000);
+            //ptr[i] = intergerx;
+            ptr[i] = new int[500000000];
+            cout << "ptr[" << i << "] points to 500,000,000 new intergers.\n";
+        }
+    }
+    catch(bad_alloc &balloc)
     {
-        Array intergerx(50000000);
-        ptr[i] = intergerx;
-        cout << "ptr[" << i << "] points to 50,000,000 new intergers.\n";
+        cout << "Memory allocation exception occurrs : " << balloc.what() << endl;
     }
 }

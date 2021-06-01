@@ -65,3 +65,81 @@ ostream &operator<<( ostream &output, const Hugeint &num)
             output << num.interger[i];
     return output;
 }
+//----------------------------------------------------------------
+//friend function
+Hugeint operator+(int num ,const Hugeint &op2)
+{
+    return op2+num;
+}
+Hugeint operator+(const string & str, const Hugeint & op2)
+{
+    return op2+str;
+}
+bool operator>=(int num, const Hugeint &op2)
+{
+    Hugeint temp(num);
+    if(temp >= op2)
+        return true;
+    else
+        return false;
+}
+bool operator>=(const string &str, const Hugeint &op2)
+{
+    Hugeint temp(str);
+    if(temp >= op2)
+        return true;
+    else
+        return false;
+}
+//----------------------------------------------------------------
+//member function
+Hugeint &Hugeint::operator++() // prefix increment operator
+{
+    *this = *this+Hugeint(1);
+    return *this;
+}
+Hugeint Hugeint::operator++( int ) // postfix increment operator
+{
+    Hugeint temp = *this;
+    *this = *this+Hugeint(1);
+    return temp;
+}
+bool Hugeint::operator>=(const Hugeint &op2)
+{
+    bool ret = true;
+    for(int i = 0; i < digits; i++)
+    {
+        if(interger[i] != op2.interger[i])
+        {
+            ret = false;
+            break;
+        }
+    }
+    if(ret)
+        return true;
+    for(int i = 0; i < digits; i++)
+    {
+        if(interger[i] > op2.interger[i])
+            return true;
+        else if(op2.interger[i] > interger[i])
+            return false;
+    }
+    return false;
+}
+bool Hugeint::operator>=(int num)
+{
+    Hugeint temp(num);
+    if(*this >= temp)
+        return true;
+    else
+        return false;
+}
+bool Hugeint::operator>=(const string &str)
+{
+    Hugeint temp(str);
+    if(*this >= temp)
+        return true;
+    else
+        return false;
+}
+//----------------------------------------------------------------

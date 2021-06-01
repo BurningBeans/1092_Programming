@@ -1,7 +1,7 @@
 #include "Array.cpp"
 int main()
 {
-    Array intergers1(5);//A size of 5 elements Array
+    Array intergers1(7);//A size of 5 elements Array
     Array intergers2;//Default Array size of 10
 
     //print intergers1 size and contents
@@ -11,7 +11,7 @@ int main()
     cout << "Array size of intergers2 is " << intergers2.getSize() << "\nArray after initialization:\n" << intergers2;
 
     //input and print intergers 1 and 2
-    cout << "\n Enter 15 intergers:\n";
+    cout << "\n Enter 17 intergers:\n";
     cin >> intergers1 >> intergers2;
     cout << "\n After input, the Array contain:\n" << "intergers1:\n" << intergers1 << "intergers2:\n" << intergers2;
 
@@ -38,7 +38,7 @@ int main()
     cout << "\n\nAssigning 1000 to intergers1[5]" << endl;
     intergers1[5] = 1000;
     cout << "intergers1\n" << intergers1;
-    //------------------------------------------------ inseted lines
+    //------------------------------------------------ inserted lines
     
     intergers3 = -intergers3;
     cout << "intergers2 \n" << intergers2 << endl;

@@ -1,20 +1,20 @@
 #include <iostream>
 #include "Account.h"
 using namespace std;
-Account::Account(double bal, double iRate )
+Account::Account(double bal, double iRate)
 {
-    if (bal >0)
+    if (bal > 0)
         balance = bal;
     else
         balance = 0;
-    if(iRate >0)
+    if (iRate > 0)
         interestRate = iRate;
     else
         interestRate = 0;
 }
 void Account::credit(double depos)
 {
-    if(depos > 0)
+    if (depos > 0)
         balance = balance + depos;
 }
 double Account::getBalance()
@@ -23,12 +23,12 @@ double Account::getBalance()
 }
 bool Account::debit(double withdw)
 {
-    if(withdw >0 && withdw <= balance)
+    if (withdw > 0 && withdw <= balance)
     {
-    balance = balance - withdw;
-    return true;
+        balance = balance - withdw;
+        return true;
     }
-    else if(withdw > balance)
+    else if (withdw > balance)
     {
         cout << " Debit amount exceeded account balance." << endl;
         return false;
@@ -43,6 +43,6 @@ void Account::print()
 
 double Account::calculateInterest()
 {
-    balance = balance + (balance*interestRate);
+    balance = balance + (balance * interestRate);
     return balance;
 }

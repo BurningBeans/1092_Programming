@@ -12,6 +12,7 @@ Queue::Queue(int insize)
 }
 Queue::~Queue()
 {
+    delete []intQueue;
     cout <<"A Queue of size " << size << " is destruct." <<endl;
 }
 void Queue::enqueue(int num)

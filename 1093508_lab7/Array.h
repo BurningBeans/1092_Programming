@@ -5,7 +5,6 @@ using namespace std;
 class Array{
     friend ostream &operator<<(ostream &, const Array & );
     friend istream &operator>>(istream &, Array & );
-    friend Array operator>>(Array &, int &);
     public:
     Array( int = 10 ); // default constructor
     Array( const Array & ); // copy constructor
@@ -15,7 +14,7 @@ class Array{
     //----------------------------------------------------------------
     Array operator+(const Array &); // plus operator
     Array &operator-(); // minus operator
-
+    Array &operator>>(int); //
     //----------------------------------------------------------------
     bool operator==(const Array & ) const; // equality operator
     // inequality operator; returns opposite of operator

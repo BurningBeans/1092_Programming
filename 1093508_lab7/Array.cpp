@@ -71,21 +71,19 @@ Array &Array::operator-()
     return *this;
 }
 
-Array operator>>(Array &a, int &input)
+Array &Array::operator>>(int input)
 {
-    int shift;
-    input >> shift;
-    shift %= a.size;
+    int shift = input%size;
     for(int i = 0; i < shift; i++)
     {
-        int temp = a.ptr[0];
-        for(int j = 0; j < a.size; j++)
+        int last = ptr[size-1];
+        for(int j = size-1; j > 0; j--)
         {
-            a.ptr[j] = a.ptr[j+1];
+            ptr[j] = ptr[j-1];
         }
-        a.ptr[a.size] = temp;
+        ptr[0] = last;
     }
-    return a;
+    return *this;
 }
 
 //----------------------------------------------------------------

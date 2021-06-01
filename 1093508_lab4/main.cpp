@@ -5,8 +5,8 @@ int main()
 {
     int size = 0;
     cin >> size;
-    Queue ideal = Queue(size);
-    Queue arriving = Queue(size);
+    Queue ideal(size);
+    Queue arriving(size);
     int test_case = 0;
     cin >> test_case;
     int counter = 1;

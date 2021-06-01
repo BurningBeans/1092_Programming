@@ -5,6 +5,11 @@
 using namespace std;
 class Hugeint
 {
+    friend Hugeint operator+(int ,const Hugeint &);
+    friend Hugeint operator+(const string &, const Hugeint &);
+    friend bool operator>=(int , const Hugeint &);
+    friend bool operator>=(const string &, const Hugeint &);
+
     friend ostream & operator<<(ostream &, const Hugeint &);
     public:
     static const int digits = 30;
@@ -17,6 +22,13 @@ class Hugeint
     //addition operator
     //Hugeint + string that represents large interger value
     Hugeint operator+(const string &) const;
+    //----------------------------------------------------------------
+    Hugeint &operator++(); // prefix increment operator
+    Hugeint operator++(int); // postfix increment operator
+    bool operator>=(const Hugeint &);
+    bool operator>=(int);
+    bool operator>=(const string &);
+    //----------------------------------------------------------------
     private:
     short interger[digits];
 };
