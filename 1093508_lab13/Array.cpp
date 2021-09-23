@@ -81,7 +81,7 @@ int &Array::operator[](int subscript)
     }
     catch(out_of_range& oor)
     {
-        cout << "Bad array index (right value):" << oor.what() << endl;
+        cout << "Bad array index (left value):" << oor.what() << endl;
         throw exception();
     }
     // check for subscript out-of-range error
